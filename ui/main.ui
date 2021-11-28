@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>599</width>
+    <height>628</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,37 +17,6 @@
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="3" column="1">
-       <widget class="QDoubleSpinBox" name="liftMulti">
-        <property name="decimals">
-         <number>3</number>
-        </property>
-        <property name="singleStep">
-         <double>0.010000000000000</double>
-        </property>
-        <property name="value">
-         <double>1.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QCheckBox" name="checkBox_liftSym">
-          <property name="text">
-           <string>Symetric</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkBox_liftPoints">
-          <property name="text">
-           <string>Points</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
       <item row="6" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -87,56 +56,23 @@
         </property>
        </widget>
       </item>
-      <item row="11" column="1">
-       <widget class="QTextEdit" name="textEditDragPoints"/>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Deadband</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Drag</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>LiftPoints</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>DragPoints</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Lift</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="1">
-       <widget class="QDoubleSpinBox" name="dragMin">
-        <property name="decimals">
-         <number>5</number>
-        </property>
-        <property name="singleStep">
-         <double>0.001000000000000</double>
-        </property>
-        <property name="value">
-         <double>0.004000000000000</double>
-        </property>
-       </widget>
+      <item row="13" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QCheckBox" name="checkBox_pitchSym">
+          <property name="text">
+           <string>Symetric</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_pitchPoints">
+          <property name="text">
+           <string>Points</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item row="9" column="1">
        <widget class="QDoubleSpinBox" name="dragMax">
@@ -151,20 +87,40 @@
         </property>
        </widget>
       </item>
+      <item row="11" column="1">
+       <widget class="QTextEdit" name="textEditDragPoints"/>
+      </item>
+      <item row="8" column="1">
+       <widget class="QDoubleSpinBox" name="dragMin">
+        <property name="decimals">
+         <number>5</number>
+        </property>
+        <property name="singleStep">
+         <double>0.001000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.004000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="15" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>PitchPoints</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>LiftPoints</string>
+        </property>
+       </widget>
+      </item>
       <item row="9" column="0">
        <widget class="QLabel" name="label_4">
         <property name="text">
          <string>Max</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QTextEdit" name="textEditLiftPoints"/>
-      </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Min</string>
         </property>
        </widget>
       </item>
@@ -175,17 +131,132 @@
         </property>
        </widget>
       </item>
-      <item row="12" column="1">
+      <item row="2" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QCheckBox" name="checkBox_liftSym">
+          <property name="text">
+           <string>Symetric</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkBox_liftPoints">
+          <property name="text">
+           <string>Points</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="15" column="1">
+       <widget class="QTextEdit" name="textEditPitchPoints"/>
+      </item>
+      <item row="16" column="1">
        <widget class="QPushButton" name="updateButton">
         <property name="text">
          <string>Update Values</string>
         </property>
        </widget>
       </item>
-      <item row="13" column="1">
+      <item row="17" column="1">
        <widget class="QPushButton" name="updateGraphButton">
         <property name="text">
          <string>Update Graph only</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Drag</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QDoubleSpinBox" name="liftMulti">
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Deadband</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QTextEdit" name="textEditLiftPoints"/>
+      </item>
+      <item row="11" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>DragPoints</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" rowspan="17" colspan="2">
+       <layout class="QGridLayout" name="gridLayout_3"/>
+      </item>
+      <item row="12" column="1">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>Pitch</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Lift</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Min</string>
+        </property>
+       </widget>
+      </item>
+      <item row="18" column="1">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>Max alphas, x-plane will start adding random tubulence at these angles </string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="18" column="2">
+       <widget class="QDoubleSpinBox" name="dh_aMin">
+        <property name="minimum">
+         <double>-180.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>0.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>-10.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="18" column="3">
+       <widget class="QDoubleSpinBox" name="dh_aMax">
+        <property name="maximum">
+         <double>180.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>10.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -198,7 +269,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>599</width>
      <height>19</height>
     </rect>
    </property>

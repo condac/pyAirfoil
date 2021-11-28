@@ -45,7 +45,7 @@ class MainW(QMainWindow):
         self.setWindowTitle("pyAirfoil "+self.versionstring)
         
         self.plot = plotWidget.PlotWidget(af)
-        self.ui.gridLayout.addWidget(self.plot, 0, 4, 20, 4)
+        self.ui.gridLayout_3.addWidget(self.plot, 0, 2, 14, 4)
         
         self.ui.updateButton.clicked.connect(self.onupdateButton)
         self.ui.updateGraphButton.clicked.connect(self.onupdateGraphButton)
@@ -69,7 +69,7 @@ class MainW(QMainWindow):
             af.loadConfigFile(filename)
             self.setUiValues()
             self.plot = plotWidget.PlotWidget(af)
-            self.ui.gridLayout.addWidget(self.plot, 0, 4, 20, 4)
+            self.ui.gridLayout_3.addWidget(self.plot, 0, 2, 14, 4)
             
             fname = QFileInfo(filename).fileName()
             self.setWindowTitle(fname+" ("+filename+") pyAirfoil "+self.versionstring)
@@ -108,14 +108,23 @@ class MainW(QMainWindow):
         return
         
     def onActionExport(self):
-        dialog = QFileDialog(self)
-        dialog.setWindowTitle("Export X-Plane Airfoil")
-        dialog.setNameFilter("Airfoil File (*.afl)")
-        dialog.setFileMode(QFileDialog.AnyFile)
-        
-        if dialog.exec_() == QDialog.Accepted:
-            filename = str(dialog.selectedFiles()[0])
+        filename = QFileDialog.getSaveFileName(self, "Export X-Plane Airfoil", "", filter="Airfoil File (*.afl)")
+
+        if filename:
+            print(filename)
+            (filename, filetype) = filename
+            if not filename.endswith(".afl"):
+                filename = filename +".afl"
             af.saveFile(filename)
+                
+        # dialog = QFileDialog(self)
+        # dialog.setWindowTitle("Export X-Plane Airfoil")
+        # dialog.setNameFilter("Airfoil File (*.afl)")
+        # dialog.setFileMode(QFileDialog.AnyFile)
+        # 
+        # if dialog.exec_() == QDialog.Accepted:
+        #     filename = str(dialog.selectedFiles()[0])
+        #     af.saveFile(filename)
         return
         
     def onActionImport(self):
@@ -133,24 +142,38 @@ class MainW(QMainWindow):
     
     def onupdateGraphButton(self):
         self.plot = plotWidget.PlotWidget(af)
-        self.ui.gridLayout.addWidget(self.plot, 0, 4, 20, 4)
+        self.ui.gridLayout_3.addWidget(self.plot, 0, 2, 14, 4)
         
     def onupdateButton(self):
         print("update")
         self.readUiValues()
         
+        # Lift
         if af.c["u_liftPoints"]:
-            af.createLiftFromPoints(af.c["u_liftPointsText"])
+            af.createDataFromPoints(af.c["cl"], af.c["u_liftPointsText"], multi=af.c["u_liftMulti"])
             
         if af.c["u_liftSym"]:
             af.makeSymetric(af.c["cl"])
         
+        #Drag
         if af.c["u_dragSin"]:
             af.createDrag(af.c["u_dragMin"], af.c["u_dragMax"])
-            
+        if af.c["u_dragPoints"]:
+            af.createDataFromPoints(af.c["cd"], af.c["u_dragPointsText"])
+        
+        if af.c["u_dragSym"]:
+            af.makeSymetricAbs(af.c["cd"])
+        
+        
+        #Pitch
+        if af.c["u_pitchPoints"]:
+            af.createDataFromPoints(af.c["cm"], af.c["u_pitchPointsText"])
+        if af.c["u_pitchSym"]:
+            af.makeSymetric(af.c["cm"])
+        
             
         self.plot = plotWidget.PlotWidget(af)
-        self.ui.gridLayout.addWidget(self.plot, 0, 4, 20, 4)
+        self.ui.gridLayout_3.addWidget(self.plot, 0, 2, 14, 4)
 
         #af.saveFile("output.afl")
         #af.saveConfigFile("output.pyafl")
@@ -171,6 +194,17 @@ class MainW(QMainWindow):
         af.c["u_dragMax"] = self.ui.dragMax.value()
         af.c["u_dragPointsText"] = self.ui.textEditDragPoints.toPlainText()
         
+        # pitch
+        af.c["u_pitchSym"] = self.ui.checkBox_pitchSym.isChecked()
+        af.c["u_pitchPoints"] = self.ui.checkBox_pitchPoints.isChecked()
+        af.c["u_pitchPointsText"] = self.ui.textEditPitchPoints.toPlainText()
+        
+        # dataheader stuff
+        
+        af.c["dh_aMin"] = self.ui.dh_aMin.value()
+        af.c["dh_aMax"] = self.ui.dh_aMax.value()
+        af.c["h_mach"] = 0.970
+        
     def setUiValues(self):
         self.ui.checkBox_liftSym.setChecked(af.c["u_liftSym"])# = self.ui.checkBox_liftSym.isChecked()
         self.ui.checkBox_liftPoints.setChecked(af.c["u_liftPoints"])
@@ -178,15 +212,25 @@ class MainW(QMainWindow):
         self.ui.textEditLiftPoints.setText(af.c["u_liftPointsText"]) # = self.ui.textEditLiftPoints.toPlainText()
         
         # Drag
-        # af.c["u_dragSym"] = self.ui.checkBox_dragSym.isChecked()
-        # af.c["u_dragKeep"] = self.ui.checkBox_dragKeep.isChecked()
-        # af.c["u_dragPoints"] = self.ui.checkBox_dragPoints.isChecked()
-        # af.c["u_dragSin"] = self.ui.checkBox_dragSin.isChecked()
-        # 
-        # af.c["u_dragMin"] = self.ui.dragMin.value()
-        # af.c["u_dragMax"] = self.ui.dragMax.value()
-        # af.c["u_dragPointsText"] = self.ui.textEditDragPoints.toPlainText()
+        self.ui.checkBox_dragSym.setChecked(af.c["u_dragSym"])# = self.ui.checkBox_liftSym.isChecked()
+        self.ui.checkBox_dragKeep.setChecked(af.c["u_dragKeep"])
+        self.ui.checkBox_dragPoints.setChecked(af.c["u_dragPoints"])# = self.ui.checkBox_liftSym.isChecked()
+        self.ui.checkBox_dragSin.setChecked(af.c["u_dragSin"])
+        #self.ui.liftMulti.setValue(af.c["u_liftMulti"])# = self.ui.liftMulti.value()
+        self.ui.dragMin.setValue(af.c["u_dragMin"])
+        self.ui.dragMax.setValue(af.c["u_dragMax"])
+        self.ui.textEditDragPoints.setText(af.c["u_dragPointsText"]) # = self.ui.textEditLiftPoints.toPlainText()
+        
+        
+        # Pitch
+        self.ui.checkBox_pitchSym.setChecked(af.c["u_pitchSym"])# = self.ui.checkBox_liftSym.isChecked()
+        self.ui.checkBox_pitchPoints.setChecked(af.c["u_pitchPoints"])
+        self.ui.textEditPitchPoints.setText(af.c["u_pitchPointsText"]) # = self.ui.textEditLiftPoints.toPlainText()
 
+        # dataheader stuff
+        if ("dh_aMin" in af.c):
+            self.ui.dh_aMin.setValue( float(af.c["dh_aMin"]) ) 
+            self.ui.dh_aMax.setValue( float(af.c["dh_aMax"])  )
 
 if __name__ == "__main__":
     
