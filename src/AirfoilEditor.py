@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import parser
 import traceback
 import os
@@ -203,7 +204,7 @@ class MainW(QMainWindow):
         
         af.c["dh_aMin"] = self.ui.dh_aMin.value()
         af.c["dh_aMax"] = self.ui.dh_aMax.value()
-        af.c["h_mach"] = 0.970
+        af.c["h_mach"] = self.ui.h_mach.value()
         
     def setUiValues(self):
         self.ui.checkBox_liftSym.setChecked(af.c["u_liftSym"])# = self.ui.checkBox_liftSym.isChecked()
@@ -231,6 +232,10 @@ class MainW(QMainWindow):
         if ("dh_aMin" in af.c):
             self.ui.dh_aMin.setValue( float(af.c["dh_aMin"]) ) 
             self.ui.dh_aMax.setValue( float(af.c["dh_aMax"])  )
+        if ("h_mach" in af.c):
+            self.ui.h_mach.setValue( float(af.c["h_mach"])  )
+        else:
+            self.ui.h_mach.setValue( 0.84 )
 
 if __name__ == "__main__":
     

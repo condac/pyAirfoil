@@ -151,6 +151,12 @@ class AirfoilFile():
 # 3 alpha min
 # 4 alpha max
 # 5 linear range
+
+# 11 minimum drag
+
+# 13 drag alfa10
+# cd power
+
         self.c["dataHeader"][3] = f"{self.c['dh_aMin']:.6f}" 
         self.c["dataHeader"][4] = f"{self.c['dh_aMax']:.6f}" # self.c["dh_aMax"]
         out = ""
@@ -172,7 +178,7 @@ class AirfoilFile():
         #     f.write(line)
         f.write(self.createDataHeader())
         for i in range(len(self.c["alpha"])):
-            out = "{:6.1f}{:9.5f}{:9.5f}{:9.5f}\n".format(self.c["alpha"][i], self.c["cl"][i], self.c["cd"][i], self.c["cm"][i])
+            out = "{:6.1f}{:9.5f} {:9.7f}{:9.5f}\n".format(self.c["alpha"][i], self.c["cl"][i], self.c["cd"][i], self.c["cm"][i])
             f.write(out)
 
 
